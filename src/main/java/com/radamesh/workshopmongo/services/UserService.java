@@ -34,11 +34,11 @@ public class UserService {
     
     public void delete(String id) {
         findById(id);
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
     
     public User update(User obj) {
-        User newObj = userRepository.findById(obj.getId());
+        User newObj = findById(obj.getId());
         updateData(newObj, obj);
         return userRepository.save(newObj);
     }
