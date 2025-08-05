@@ -1,5 +1,6 @@
 package com.radamesh.workshopmongo.resources;
 
+import com.radamesh.workshopmongo.domain.Post;
 import com.radamesh.workshopmongo.domain.User;
 import com.radamesh.workshopmongo.dto.UserDTO;
 import com.radamesh.workshopmongo.services.UserService;
@@ -54,4 +55,9 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User userPosts = service.findById(id);
+        return ResponseEntity.ok().body(userPosts.getPosts());
+    }
 }

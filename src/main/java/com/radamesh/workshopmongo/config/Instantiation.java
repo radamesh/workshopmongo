@@ -3,6 +3,7 @@ package com.radamesh.workshopmongo.config;
 import com.radamesh.workshopmongo.domain.Post;
 import com.radamesh.workshopmongo.domain.User;
 import com.radamesh.workshopmongo.dto.AuthorDTO;
+import com.radamesh.workshopmongo.dto.CommentDTO;
 import com.radamesh.workshopmongo.repository.PostRepository;
 import com.radamesh.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,14 @@ public class Instantiation implements CommandLineRunner {
         Post post2 = new Post(null, sdf.parse("02/08/2025"), "Bora começar", "sempre terei um inicio", new AuthorDTO(guilherme));
         Post post3 = new Post(null, sdf.parse("29/07/2025"), "Bom dia", "Bom dia qual é a melhor viagem?", new AuthorDTO(leandro));
         postRepository.saveAll(Arrays.asList(post1, post2, post3));
+
+        CommentDTO c1 = new CommentDTO("Boa Viagem Mano", sdf.parse("01/08/2025"), new AuthorDTO(mariana));
+        CommentDTO c2 = new CommentDTO("Manda mensagem", sdf.parse("02/08/2025"), new AuthorDTO(mariana));
+        CommentDTO c3 = new CommentDTO("bom dia e boa viagem", sdf.parse("29/07/2025"), new AuthorDTO(leandro));
+
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().add(c3);
+        postRepository.saveAll(Arrays.asList(post1, post2));
 
         mariana.getPosts().add(post1);
         guilherme.getPosts().add(post2);
